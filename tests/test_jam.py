@@ -1,7 +1,8 @@
 import boto3
 from moto import mock_aws
-from ..src.demo import MyModel
-
+from ..src.demo import MyModel, clean_pdf
+import os
+import shutil
 
 @mock_aws
 def test_my_model_save():
@@ -15,3 +16,10 @@ def test_my_model_save():
     body = conn.Object("mybucket", "steve").get()["Body"].read().decode("utf-8")
 
     assert body == "is awesome"
+
+
+def test_clean_pdf():
+    filename="/tmp/small.pdf"
+    shutil.copyfile("tests/fixtures/smallest-possible-pdf-1.5-xrefstm-only.pdf", filename)
+    clean_pdf(filename)
+    os.remove(filename)
