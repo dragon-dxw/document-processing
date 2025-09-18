@@ -1,0 +1,1 @@
+docker-compose -f docker-compose-localstack.yml up --build
