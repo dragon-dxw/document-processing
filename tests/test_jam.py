@@ -2,6 +2,7 @@ import boto3
 from moto import mock_aws
 from ..src.demo import MyModel
 
+
 @mock_aws
 def test_my_model_save():
     conn = boto3.resource("s3", region_name="us-east-1")
@@ -11,7 +12,6 @@ def test_my_model_save():
     model_instance = MyModel("steve", "is awesome")
     model_instance.save()
 
-    body = conn.Object("mybucket", "steve").get()[
-        "Body"].read().decode("utf-8")
+    body = conn.Object("mybucket", "steve").get()["Body"].read().decode("utf-8")
 
     assert body == "is awesome"
