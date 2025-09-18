@@ -1,0 +1,12 @@
+---
+services:
+  document_processing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: processing
+    env_file:
+      - ./.env
+    volumes:
+      - ./data:/data:z
+    restart: unless-stopped
